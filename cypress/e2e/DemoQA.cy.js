@@ -1,8 +1,13 @@
 describe('DemoQA', () => {
-  it('Practice Form', () => {
 
+  beforeEach(() =>{
     //Visit this page
     cy.visit('https://demoqa.com/automation-practice-form')
+    cy.get('[id="userName-label"]').as('nameLabel')
+
+
+})
+  it('Practice Form', () => {
 
     cy.get('#firstName').clear().type('Raja Junaid')
     cy.get('#lastName').clear().type('Ullah Khan')
@@ -29,10 +34,45 @@ describe('DemoQA', () => {
     return false;
   })
 
-  it.only('Invoke command', () => {
+
+  it.only('Wait', () => {
+   //To Visit
+   cy.visit('https://www.demoblaze.com/')
+   
+   //Wait in Cypress
+   cy.get('.cypress', {timeout: 8000})
+
+
+  })
+
+  it('Aliases', () => {
+
+    //Alias
+    cy.get('@nameLabel').then(label => {
+    expect(label.text()).to.eq('Name')
+    })
     
-    //Visit this page
-    cy.visit('https://demoqa.com/automation-practice-form')
+  })
+
+  it('Each Method', () => {
+
+    //Each Method for Loop
+    cy.get('#hobbiesWrapper').each(checkBoxDiv => {
+    cy.wrap(checkBoxDiv).find('[type="checkbox"]').check({force: true})
+      
+    })
+  })
+
+  it('Chai Jquery Assertion', () => {
+
+    //Chai JQuery Username label Text
+    cy.get('[id="userName-label"]').then($label =>{
+      expect($label.text()).to.eq('Name')
+    })
+
+  })
+
+  it('Invoke command', () => {
 
     //Invoke Username label Text
     cy.get('[id="userName-label"]').invoke('text').then(labelText =>{
@@ -47,9 +87,6 @@ describe('DemoQA', () => {
   })
 
   it('Wrap Method', () => {
-    
-    //Visit this page
-    cy.visit('https://demoqa.com/automation-practice-form')
 
     //Wrap Username label Text
     cy.get('[id="userName-label"]').then (label =>{
@@ -58,9 +95,6 @@ describe('DemoQA', () => {
   })
 
   it('Yield subject from commands', () => {
-    
-    //Visit this page
-    cy.visit('https://demoqa.com/automation-practice-form')
 
     //Yield Username label Text
     cy.get('[id="userName-label"]').then (label =>{
@@ -69,10 +103,6 @@ describe('DemoQA', () => {
   })
 
   it.skip('Methods to find Locators', () => {
-    
-    //Visit this page
-    cy.visit('https://demoqa.com/automation-practice-form')
-
 
     //Chain Method to find Locator
     cy.get('#userForm')
