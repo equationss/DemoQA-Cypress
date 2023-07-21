@@ -29,6 +29,45 @@ describe('DemoQA', () => {
     return false;
   })
 
+  it.only('Invoke command', () => {
+    
+    //Visit this page
+    cy.visit('https://demoqa.com/automation-practice-form')
+
+    //Invoke Username label Text
+    cy.get('[id="userName-label"]').invoke('text').then(labelText =>{
+      expect(labelText).to.eq('Name')
+    })
+
+    //Invoke Class Label
+    cy.get('[id="userName-label"]').invoke('attr', 'class').then(elementClass =>{
+      expect(elementClass).to.eq('form-label')
+    })
+
+  })
+
+  it('Wrap Method', () => {
+    
+    //Visit this page
+    cy.visit('https://demoqa.com/automation-practice-form')
+
+    //Wrap Username label Text
+    cy.get('[id="userName-label"]').then (label =>{
+    cy.wrap(label).should('contain', 'Name')    
+  })
+  })
+
+  it('Yield subject from commands', () => {
+    
+    //Visit this page
+    cy.visit('https://demoqa.com/automation-practice-form')
+
+    //Yield Username label Text
+    cy.get('[id="userName-label"]').then (label =>{
+      expect(label.text()).to.eq('Name')
+    })
+  })
+
   it.skip('Methods to find Locators', () => {
     
     //Visit this page
