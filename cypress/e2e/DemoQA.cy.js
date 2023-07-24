@@ -39,6 +39,14 @@ describe('DemoQA', () => {
    //To Visit
    cy.visit('https://www.demoblaze.com/')
    
+   //Wait for certain time
+   cy.wait(50000)
+
+   //For a certain route
+   cy.intercept('GET', '/entries').as('WaitForEntries')
+   cy.wait('@WaitForEntries')
+
+
    //Wait in Cypress
    cy.get('.cypress', {timeout: 8000})
 
